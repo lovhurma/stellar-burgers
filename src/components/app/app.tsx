@@ -14,10 +14,22 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-
+import { useEffect } from 'react';
+import {
+  getIngredients,
+  getIngredientsState
+} from '../../services/slices/ingredientSlice';
+import { useDispatch } from '../../services/store';
+import { useSelector } from '../../services/store';
 const App = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
-  const background = location.state?.bakground;
+  const background = location.state?.background;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getIngredients);
+  }, []);
   return (
     <div className={styles.app}>
       <AppHeader />
