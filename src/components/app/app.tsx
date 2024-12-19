@@ -15,10 +15,7 @@ import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { useEffect } from 'react';
-import {
-  getIngredients,
-  getIngredientsState
-} from '../../services/slices/ingredientSlice';
+import { getIngredients } from '../../services/ingredients/actions';
 import { useDispatch } from '../../services/store';
 import { useSelector } from '../../services/store';
 const App = () => {
@@ -28,7 +25,7 @@ const App = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getIngredients);
+    dispatch(getIngredients());
   }, []);
   return (
     <div className={styles.app}>
@@ -36,44 +33,44 @@ const App = () => {
       <Routes location={background || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
-        <Route path='/feed' element={<Feed />} />
-        <Route path='/feed/:number' element={<OrderInfo />} />
+        {/* <Route path='/feed' element={<Feed />} />
+        <Route path='/feed/:number' element={<OrderInfo />} /> */}
         {/* Здесь будут защищенные роуты */}
-        <Route path='/login' element={<Login />} />
+        {/* <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/profile/orders' element={<ProfileOrders />} />
+        <Route path='/profile/orders' element={<ProfileOrders />} /> */}
         {/* Здесь будут защищенные роуты */}
-        <Route path='*' element={<NotFound404 />} />
+        {/* <Route path='*' element={<NotFound404 />} /> */}
       </Routes>
       {background && (
         <Routes>
-          <Route
+          {/* <Route
             path='/feed/:number'
             element={
-              <Modal title={''} onClose={() => {}}>
+              <Modal title={''} onClose={() => navigate(-1)}>
                 <OrderInfo />
               </Modal>
             }
-          />
+          /> */}
           <Route
             path='/ingredients/:id'
             element={
-              <Modal title={''} onClose={() => {}}>
+              <Modal title={''} onClose={() => navigate(-1)}>
                 <IngredientDetails />
               </Modal>
             }
           />
-          <Route
+          {/* <Route
             path='/profile/orders/:number'
             element={
               <Modal title={''} onClose={() => {}}>
                 <OrderInfo />
               </Modal>
             }
-          />
+          /> */}
         </Routes>
       )}
     </div>
