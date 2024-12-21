@@ -28,31 +28,37 @@ export const constructorSlice = createSlice({
         return { payload: { ...ingredient, id: uuidv4() } };
       }
     },
-    deleteIngredient(state, action: PayloadAction<number>) {
-      const index = action.payload;
-      state.ingredients = [
-        ...state.ingredients.slice(0, index),
-        ...state.ingredients.slice(index, +1)
-      ];
+    deleteIngredient(state, action: PayloadAction<string>) {
+      state.ingredients = state.ingredients.filter(
+        (ingredient) => ingredient.id !== action.payload
+      );
     },
     moveIngredientUp: (state, action: PayloadAction<string>) => {
       const index = state.ingredients.findIndex(
-        (item) => item.id === action.payload
+        (ingredient) => ingredient.id === action.payload
       );
       if (index > 0) {
-        const ingredient = state.ingredients[index];
+        const ingredientToMove = state.ingredients[index];
         state.ingredients.splice(index, 1);
-        state.ingredients.splice(index - 1, 0, ingredient);
+        state.ingredients.splice(index - 1, 0, ingredientToMove);
       }
     },
     moveIngredientDown: (state, action: PayloadAction<string>) => {
+      // const index = state.ingredients.findIndex(
+      //   (item) => item.id === action.payload
+      // ); Для себя чтобы разобраться в ошибке
+      // if (index !== -1 && index < state.ingredients.length - 1) {
+      //   const ingredient = state.ingredients[index];
+      //   state.ingredients.splice(index, 1);
+      //   state.ingredients.splice(index + 1, 0, ingredient);
+      // }
       const index = state.ingredients.findIndex(
-        (item) => item.id === action.payload
+        (ingredient) => ingredient.id === action.payload
       );
-      if (index !== -1 && index < state.ingredients.length - 1) {
-        const ingredient = state.ingredients[index];
+      if (index < state.ingredients.length - 1) {
+        const ingredientToMove = state.ingredients[index];
         state.ingredients.splice(index, 1);
-        state.ingredients.splice(index + 1, 0, ingredient);
+        state.ingredients.splice(index + 1, 0, ingredientToMove);
       }
     },
     clearConstructor(state) {
@@ -73,4 +79,4 @@ export const {
   clearConstructor
 } = constructorSlice.actions;
 
-export const { selectConstructorItems } = constructorSlice.selectors
+export const { selectConstructorItems } = constructorSlice.selectors;
