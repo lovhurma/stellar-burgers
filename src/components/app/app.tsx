@@ -17,7 +17,7 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { useEffect } from 'react';
 import { getIngredients } from '../../services/ingredients/actions';
 import { useDispatch } from '../../services/store';
-import { useSelector } from '../../services/store';
+
 const App = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -58,7 +58,7 @@ const App = () => {
           <Route
             path='/ingredients/:id'
             element={
-              <Modal title={''} onClose={() => navigate(-1)}>
+              <Modal title={'Детали ингредиента'} onClose={() => navigate(-1)}>
                 <IngredientDetails />
               </Modal>
             }
