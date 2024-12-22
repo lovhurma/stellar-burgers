@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getFeeds = createAsyncThunk('feed/getfeeds', async () => {
   const respone = await getFeedsApi();
-  return respone.orders;
+  return respone;
 });
 
 // export const getFeeds = createAsyncThunk('feed/getfeeds', getFeedsApi);

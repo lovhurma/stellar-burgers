@@ -11,7 +11,7 @@ const initialState: IFeedState = {
   orders: [],
   total: 0,
   totalToday: 0,
-  isLoading: false,
+  isLoading: true,
   error: null
 };
 
@@ -31,8 +31,10 @@ export const feedSlice = createSlice({
         state.error = null;
       })
       .addCase(getFeeds.fulfilled, (state, action) => {
+        state.orders = action.payload.orders;
+        state.total = action.payload.total;
+        state.totalToday = action.payload.totalToday;
         state.isLoading = false;
-        state.orders = action.payload;
       })
       .addCase(getFeeds.rejected, (state, action) => {
         state.isLoading = false;

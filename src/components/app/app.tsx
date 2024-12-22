@@ -27,7 +27,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getIngredients());
-    console.log(dispatch(getFeeds()));
   }, []);
   return (
     <div className={styles.app}>
@@ -37,26 +36,26 @@ const App = () => {
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='/feed' element={<Feed />} />
         <Route path='/feed/:number' element={<OrderInfo />} />
-        {/* Здесь будут защищенные роуты */}
-        {/* <Route path='/login' element={<Login />} />
+        {/* Здесь будут защищенные роуты  */}
+        <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/profile/orders' element={<ProfileOrders />} /> */}
+        <Route path='/profile/orders' element={<ProfileOrders />} />
         {/* Здесь будут защищенные роуты */}
-        {/* <Route path='*' element={<NotFound404 />} /> */}
+        <Route path='*' element={<NotFound404 />} />
       </Routes>
       {background && (
         <Routes>
-          {/* <Route
+          <Route
             path='/feed/:number'
             element={
               <Modal title={''} onClose={() => navigate(-1)}>
                 <OrderInfo />
               </Modal>
             }
-          /> */}
+          />
           <Route
             path='/ingredients/:id'
             element={
@@ -65,14 +64,14 @@ const App = () => {
               </Modal>
             }
           />
-          {/* <Route
+          <Route
             path='/profile/orders/:number'
             element={
               <Modal title={''} onClose={() => {}}>
                 <OrderInfo />
               </Modal>
             }
-          /> */}
+          />
         </Routes>
       )}
     </div>
