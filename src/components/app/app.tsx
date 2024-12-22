@@ -17,6 +17,7 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { useEffect } from 'react';
 import { getIngredients } from '../../services/ingredients/actions';
 import { useDispatch } from '../../services/store';
+import { getFeeds } from '../../services/feed/action';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getIngredients());
+    console.log(dispatch(getFeeds()));
   }, []);
   return (
     <div className={styles.app}>
@@ -33,8 +35,8 @@ const App = () => {
       <Routes location={background || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
-        {/* <Route path='/feed' element={<Feed />} />
-        <Route path='/feed/:number' element={<OrderInfo />} /> */}
+        <Route path='/feed' element={<Feed />} />
+        <Route path='/feed/:number' element={<OrderInfo />} />
         {/* Здесь будут защищенные роуты */}
         {/* <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
