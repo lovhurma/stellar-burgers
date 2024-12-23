@@ -8,9 +8,13 @@ import {
   getOrderRequest
 } from '../../services/Order/OrderSlice';
 import { fetchOrder } from '../../services/Order/actions';
+import { isAuthCheckedSelector } from '../../services/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
+  const isAuthChecked = useSelector(isAuthCheckedSelector);
+  const navigate = useNavigate();
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const constructorItems = useSelector((state) => state.burgerConstructor) || {
     bun: null,
@@ -23,6 +27,10 @@ export const BurgerConstructor: FC = () => {
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
+    if (!isAuthChecked) {
+      navigate('/login');
+      return;
+    }
 
     const ingredientDataId = [
       constructorItems.bun._id,

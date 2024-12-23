@@ -9,12 +9,14 @@ import { ingredientsSlice } from './ingredients/ingredientSlice';
 import { constructorSlice } from './burger-constructor/constructorslice';
 import { orderSlice } from './Order/OrderSlice';
 import { feedSlice } from './feed/feedSlice';
+import { userSlice } from './user/userSlice';
 
 const rootReducer = combineSlices(
   ingredientsSlice,
   constructorSlice,
   orderSlice,
-  feedSlice
+  feedSlice,
+  userSlice
 ); // Заменить на импорт настоящего редьюсера
 
 const store = configureStore({

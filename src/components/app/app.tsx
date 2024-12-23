@@ -18,6 +18,8 @@ import { useEffect } from 'react';
 import { getIngredients } from '../../services/ingredients/actions';
 import { useDispatch } from '../../services/store';
 import { getFeeds } from '../../services/feed/action';
+import { ProtectedRoute } from '../protected-route';
+import { getUser } from '../../services/user/action';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,8 +28,9 @@ const App = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    dispatch(getUser());
     dispatch(getIngredients());
-  }, []);
+  }, [dispatch]);
   return (
     <div className={styles.app}>
       <AppHeader />
@@ -37,12 +40,54 @@ const App = () => {
         <Route path='/feed' element={<Feed />} />
         <Route path='/feed/:number' element={<OrderInfo />} />
         {/* Здесь будут защищенные роуты  */}
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/forgot-password' element={<ForgotPassword />} />
-        <Route path='/reset-password' element={<ResetPassword />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/profile/orders' element={<ProfileOrders />} />
+        <Route
+          path='/login'
+          element={
+            <ProtectedRoute onlyInAuth>
+              <Login />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/register'
+          element={
+            <ProtectedRoute onlyInAuth>
+              <Register />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/forgot-password'
+          element={
+            <ProtectedRoute onlyInAuth>
+              <ForgotPassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/reset-password'
+          element={
+            <ProtectedRoute onlyInAuth>
+              <ResetPassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/profile'
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/profile/orders'
+          element={
+            <ProtectedRoute>
+              <ProfileOrders />
+            </ProtectedRoute>
+          }
+        />
         {/* Здесь будут защищенные роуты */}
         <Route path='*' element={<NotFound404 />} />
       </Routes>
@@ -68,7 +113,9 @@ const App = () => {
             path='/profile/orders/:number'
             element={
               <Modal title={''} onClose={() => {}}>
-                <OrderInfo />
+                <ProtectedRoute>
+                  <OrderInfo />
+                </ProtectedRoute>
               </Modal>
             }
           />
