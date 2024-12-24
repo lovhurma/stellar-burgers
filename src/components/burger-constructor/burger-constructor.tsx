@@ -6,8 +6,8 @@ import {
   clearOrderModalData,
   getOrderModalData,
   getOrderRequest
-} from '../../services/order/orderSlice';
-import { fetchOrder } from '../../services/order/actions';
+} from '../../services/Order/orderSlice';
+import { fetchOrder } from '../../services/Order/actions';
 import { useNavigate } from 'react-router-dom';
 import { getUserSelector } from '../../services/user/userSlice';
 

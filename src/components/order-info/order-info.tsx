@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from '../../services/store';
 import { ordersInfoDataSelector } from '@selectors';
 import { useParams } from 'react-router-dom';
 import { getIngredientsState } from '../../services/ingredients/ingredientSlice';
-import { getOrderByNumber } from '../../services/order/actions';
+import { getOrderByNumber } from '../../services/Order/actions';
 
 export const OrderInfo: FC = () => {
   const dispatch = useDispatch();
