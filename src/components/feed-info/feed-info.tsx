@@ -1,10 +1,8 @@
 import { FC } from 'react';
-
 import { TOrder } from '@utils-types';
 import { FeedInfoUI } from '../ui/feed-info';
 import { useSelector } from '../../services/store';
 import {
-  // getFeedsInfo,
   getOrdersFeeds,
   getTotalFeeds,
   getTotalTodayFeeds
@@ -27,9 +25,6 @@ export const FeedInfo: FC = () => {
     total: total,
     totalToday: totalToday
   };
-  // const feed = useSelector(getFeedsInfo);
-
-  // console.log(feed);
 
   const readyOrders = getOrders(orders, 'done');
 

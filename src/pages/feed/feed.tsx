@@ -14,10 +14,6 @@ export const Feed: FC = () => {
   /** TODO: взять переменную из стора */
   const orders: TOrder[] = useSelector(getOrdersFeeds);
 
-  // if (!orders.length) {
-  //   return <Preloader />;
-  // }
-
   return (
     <FeedUI
       orders={orders}

@@ -1,10 +1,8 @@
 import {
-  forgotPasswordApi,
   getUserApi,
   loginUserApi,
   logoutApi,
   registerUserApi,
-  resetPasswordApi,
   TAuthResponse,
   TLoginData,
   TRegisterData,
@@ -12,15 +10,6 @@ import {
   updateUserApi
 } from '@api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
-//Регистрация пользователя
-// export const registerUser = createAsyncThunk<TAuthResponse, TRegisterData>(
-//   'user/register',
-//   async (body) => {
-//     const data = await registerUserApi(body);
-//     return data;
-//   }
-// );
 
 export const registerUser = createAsyncThunk('user/register', registerUserApi);
 
@@ -51,16 +40,4 @@ export const upDateUser = createAsyncThunk<TUserResponse, TRegisterData>(
     const data = await updateUserApi(body);
     return data;
   }
-);
-
-//Забыл пароль
-export const forgotPassword = createAsyncThunk(
-  'user/forgotpassword',
-  async (data: { email: string }) => forgotPasswordApi(data)
-);
-
-//Запрос на изменение пароля
-export const resetPassword = createAsyncThunk(
-  'user/resetpassword',
-  async (data: { password: string; token: string }) => resetPasswordApi(data)
 );

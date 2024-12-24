@@ -1,12 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import {
-  forgotPassword,
   getUser,
   loginUser,
   logoutUser,
   registerUser,
-  resetPassword,
   upDateUser
 } from './action';
 import { deleteCookie, setCookie } from '../../utils/cookie';
@@ -118,30 +116,6 @@ export const userSlice = createSlice({
         state.error = null;
         state.user = payload.user;
         state.isAuthorized = true;
-      })
-      .addCase(forgotPassword.pending, (state) => {
-        state.isLoadong = true;
-        state.error = null;
-      })
-      .addCase(forgotPassword.rejected, (state, { error }) => {
-        state.isLoadong = false;
-        state.error = error.message as string;
-      })
-      .addCase(forgotPassword.fulfilled, (state) => {
-        state.isLoadong = false;
-        state.error = null;
-      })
-      .addCase(resetPassword.pending, (state) => {
-        state.isLoadong = true;
-        state.error = null;
-      })
-      .addCase(resetPassword.rejected, (state, { error }) => {
-        state.isLoadong = false;
-        state.error = error.message as string;
-      })
-      .addCase(resetPassword.fulfilled, (state) => {
-        state.isLoadong = false;
-        state.error = null;
       });
   }
 });

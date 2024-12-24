@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
-  // const isAuthChecked = useSelector(isAuthCheckedSelector);
   const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
@@ -27,10 +26,7 @@ export const BurgerConstructor: FC = () => {
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
-    // if (!isAuthChecked) {
-    //   navigate('/login');
-    //   return;
-    // }
+
     if (!user) {
       navigate('/login');
       return;

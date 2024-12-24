@@ -1,14 +1,16 @@
 import { FC, SyntheticEvent, useState } from 'react';
 import { RegisterUI } from '@ui-pages';
-import { useDispatch } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 import { registerUser } from '../../services/user/action';
 import { TRegisterData } from '@api';
+import { getUserErrorSelector } from '../../services/user/userSlice';
 
 export const Register: FC = () => {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const error = useSelector(getUserErrorSelector);
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -18,14 +20,12 @@ export const Register: FC = () => {
       password: password
     };
 
-    console.log('Registering user with data:', userData); // Отладка
-
     dispatch(registerUser(userData));
   };
 
   return (
     <RegisterUI
-      errorText=''
+      errorText={error?.toString()}
       email={email}
       userName={userName}
       password={password}

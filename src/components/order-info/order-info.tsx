@@ -3,17 +3,16 @@ import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
 import { useDispatch, useSelector } from '../../services/store';
-import { ordersIndoDataSelector } from '@selectors';
+import { ordersInfoDataSelector } from '@selectors';
 import { useParams } from 'react-router-dom';
 import { getIngredientsState } from '../../services/ingredients/ingredientSlice';
-import { getOrderByNumberApi } from '@api';
 import { getOrderByNumber } from '../../services/order/actions';
 
 export const OrderInfo: FC = () => {
   const dispatch = useDispatch();
   const number = useParams().number || '';
   /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = useSelector(ordersIndoDataSelector(number));
+  const orderData = useSelector(ordersInfoDataSelector(number));
 
   const ingredients: TIngredient[] = useSelector(getIngredientsState);
 
@@ -21,7 +20,7 @@ export const OrderInfo: FC = () => {
     if (!orderData) {
       dispatch(getOrderByNumber(+number));
     }
-  });
+  }, [dispatch, orderData, number]);
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;

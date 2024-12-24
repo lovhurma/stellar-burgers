@@ -30,7 +30,13 @@ export const Profile: FC = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(upDateUser(formValue));
+    if (isFormChanged) {
+      dispatch(upDateUser(formValue))
+        .unwrap()
+        .then(() => {
+          setFormValue({ ...formValue, password: '' });
+        });
+    }
   };
 
   const handleCancel = (e: SyntheticEvent) => {
@@ -58,6 +64,4 @@ export const Profile: FC = () => {
       handleInputChange={handleInputChange}
     />
   );
-
-  return null;
 };

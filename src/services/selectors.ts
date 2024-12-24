@@ -1,7 +1,6 @@
-import { stat } from 'fs';
 import { RootState } from './store';
 
-export const ordersIndoDataSelector =
+export const ordersInfoDataSelector =
   (number: string) => (state: RootState) => {
     if (state.feed.orders.length) {
       const data = state.feed.orders.find((item) => item.number === +number);
