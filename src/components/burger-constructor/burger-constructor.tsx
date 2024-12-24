@@ -8,12 +8,12 @@ import {
   getOrderRequest
 } from '../../services/Order/OrderSlice';
 import { fetchOrder } from '../../services/Order/actions';
-import { isAuthCheckedSelector } from '../../services/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
-  const isAuthChecked = useSelector(isAuthCheckedSelector);
+  // const isAuthChecked = useSelector(isAuthCheckedSelector);
+  const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const constructorItems = useSelector((state) => state.burgerConstructor) || {
@@ -27,14 +27,20 @@ export const BurgerConstructor: FC = () => {
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
-    if (!isAuthChecked) {
+    // if (!isAuthChecked) {
+    //   navigate('/login');
+    //   return;
+    // }
+    if (!user) {
       navigate('/login');
       return;
     }
 
     const ingredientDataId = [
       constructorItems.bun._id,
-      ...constructorItems.ingredients.map((ingredient) => ingredient._id),
+      ...constructorItems.ingredients.map(
+        (ingredient: TConstructorIngredient) => ingredient._id
+      ),
       constructorItems.bun._id
     ];
     dispatch(fetchOrder(ingredientDataId));

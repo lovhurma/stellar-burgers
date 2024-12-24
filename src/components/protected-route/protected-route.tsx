@@ -19,7 +19,6 @@ export const ProtectedRoute: FC<ProtectedRoutOrops> = ({
   const isAuthChecked = useSelector(isAuthCheckedSelector);
   const user = useSelector(getUserSelector);
   const location = useLocation();
-  console.log('isAuthChecked:', isAuthChecked, 'user:', user); // Отладка
 
   if (!isAuthChecked) {
     return <Preloader />;

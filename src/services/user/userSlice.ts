@@ -30,7 +30,11 @@ const initialState: UserState = {
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    checkUserStatus: (state) => {
+      state.isAuthChecked = true;
+    }
+  },
   selectors: {
     getUserSelector: (state) => state.user,
     isAuthCheckedSelector: (state) => state.isAuthChecked,
@@ -52,7 +56,6 @@ export const userSlice = createSlice({
         state.error = null;
         state.user = payload.user;
         state.isAuthorized = true;
-        state.isAuthChecked = true;
         setCookie('accessToken', payload.accessToken);
         localStorage.setItem('refreshToken', payload.refreshToken);
       })
@@ -68,7 +71,6 @@ export const userSlice = createSlice({
         state.isLoadong = false;
         state.error = null;
         state.isAuthorized = true;
-        state.isAuthChecked = true;
         state.user = payload.user;
       })
       .addCase(loginUser.pending, (state) => {
@@ -151,3 +153,5 @@ export const {
   isAuthorizedSelector,
   getUserErrorSelector
 } = userSlice.selectors;
+
+export const { checkUserStatus } = userSlice.actions;

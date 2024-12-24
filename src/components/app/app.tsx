@@ -20,6 +20,7 @@ import { useDispatch } from '../../services/store';
 import { getFeeds } from '../../services/feed/action';
 import { ProtectedRoute } from '../protected-route';
 import { getUser } from '../../services/user/action';
+import { checkUserStatus } from '../../services/user/userSlice';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,12 @@ const App = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getUser());
+    dispatch(getUser())
+      .unwrap()
+      .catch(() => {})
+      .finally(() => {
+        dispatch(checkUserStatus());
+      });
     dispatch(getIngredients());
   }, [dispatch]);
   return (
