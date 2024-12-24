@@ -9,10 +9,11 @@ import {
 } from '../../services/order/orderSlice';
 import { fetchOrder } from '../../services/order/actions';
 import { useNavigate } from 'react-router-dom';
+import { getUserSelector } from '../../services/user/userSlice';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector(getUserSelector);
   const navigate = useNavigate();
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const constructorItems = useSelector((state) => state.burgerConstructor) || {

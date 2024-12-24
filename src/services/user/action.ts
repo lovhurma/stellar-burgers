@@ -10,8 +10,17 @@ import {
   updateUserApi
 } from '@api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { deleteCookie, setCookie } from '../../utils/cookie';
 
-export const registerUser = createAsyncThunk('user/register', registerUserApi);
+export const registerUser = createAsyncThunk(
+  'user/register',
+  async (data: TRegisterData) => {
+    const response = await registerUserApi(data);
+    setCookie('accessToken', response.accessToken);
+    localStorage.setItem('refreshToken', response.refreshToken);
+    return response;
+  }
+);
 
 //Данные о пользователе
 export const getUser = createAsyncThunk('user/getuser', async () => {
@@ -22,16 +31,19 @@ export const getUser = createAsyncThunk('user/getuser', async () => {
 //Аутентификация пользователя
 export const loginUser = createAsyncThunk<TAuthResponse, TLoginData>(
   'user/login',
-  async (body) => {
-    const data = await loginUserApi(body);
-    return data;
+  async (data: TLoginData) => {
+    const response = await loginUserApi(data);
+    setCookie('accessToken', response.accessToken);
+    localStorage.setItem('refreshToken', response.refreshToken);
+    return response;
   }
 );
 
-//Выход пользователя из приложения
-export const logoutUser = createAsyncThunk('user/logout', async () =>
-  logoutApi()
-);
+export const logoutUser = createAsyncThunk('user/logout', async () => {
+  await logoutApi();
+  deleteCookie('accessToken');
+  localStorage.removeItem('refreshToken');
+});
 
 //Обновление данных пользователя
 export const upDateUser = createAsyncThunk<TUserResponse, TRegisterData>(

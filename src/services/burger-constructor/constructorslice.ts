@@ -5,11 +5,13 @@ import { v4 as uuidv4 } from 'uuid';
 export interface IBurgerConstructor {
   bun: TIngredient | null;
   ingredients: TConstructorIngredient[];
+  ingredientCounts: { [id: string]: number };
 }
 
 const initialState: IBurgerConstructor = {
   bun: null,
-  ingredients: []
+  ingredients: [],
+  ingredientCounts: {}
 };
 
 export const constructorSlice = createSlice({
@@ -22,16 +24,27 @@ export const constructorSlice = createSlice({
           state.bun = action.payload;
         } else {
           state.ingredients.push(action.payload);
+          state.ingredientCounts[action.payload._id] =
+            (state.ingredientCounts[action.payload._id] || 0) + 1;
         }
       },
       prepare(ingredient: TIngredient) {
         return { payload: { ...ingredient, id: uuidv4() } };
       }
     },
-    deleteIngredient(state, action: PayloadAction<string>) {
+    deleteIngredient: (state, action: PayloadAction<string>) => {
+      const idToDelete = action.payload;
+      // Удаляем ингредиент из массива ingredients
       state.ingredients = state.ingredients.filter(
-        (ingredient) => ingredient.id !== action.payload
+        (ingredient) => ingredient.id !== idToDelete
       );
+      // Уменьшаем счетчик
+      if (state.ingredientCounts[idToDelete]) {
+        state.ingredientCounts[idToDelete] -= 1;
+        if (state.ingredientCounts[idToDelete] <= 0) {
+          delete state.ingredientCounts[idToDelete];
+        }
+      }
     },
     moveIngredientUp: (state, action: PayloadAction<string>) => {
       const index = state.ingredients.findIndex(
@@ -44,14 +57,6 @@ export const constructorSlice = createSlice({
       }
     },
     moveIngredientDown: (state, action: PayloadAction<string>) => {
-      // const index = state.ingredients.findIndex(
-      //   (item) => item.id === action.payload
-      // ); Для себя чтобы разобраться в ошибке
-      // if (index !== -1 && index < state.ingredients.length - 1) {
-      //   const ingredient = state.ingredients[index];
-      //   state.ingredients.splice(index, 1);
-      //   state.ingredients.splice(index + 1, 0, ingredient);
-      // }
       const index = state.ingredients.findIndex(
         (ingredient) => ingredient.id === action.payload
       );

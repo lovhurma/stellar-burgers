@@ -7,7 +7,6 @@ import {
   registerUser,
   upDateUser
 } from './action';
-import { deleteCookie, setCookie } from '../../utils/cookie';
 
 export interface UserState {
   isLoadong: boolean;
@@ -54,8 +53,6 @@ export const userSlice = createSlice({
         state.error = null;
         state.user = payload.user;
         state.isAuthorized = true;
-        setCookie('accessToken', payload.accessToken);
-        localStorage.setItem('refreshToken', payload.refreshToken);
       })
       .addCase(getUser.pending, (state) => {
         state.isLoadong = true;
@@ -84,8 +81,6 @@ export const userSlice = createSlice({
         state.error = null;
         state.user = payload.user;
         state.isAuthorized = true;
-        setCookie('accessToken', payload.accessToken);
-        localStorage.setItem('refreshToken', payload.refreshToken);
       })
       .addCase(logoutUser.pending, (state) => {
         state.isLoadong = true;
@@ -100,8 +95,6 @@ export const userSlice = createSlice({
         state.error = null;
         state.user = null;
         state.isAuthorized = false;
-        deleteCookie('accessToken');
-        localStorage.removeItem('refreshToken');
       })
       .addCase(upDateUser.pending, (state) => {
         state.isLoadong = true;
