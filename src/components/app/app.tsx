@@ -17,7 +17,6 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { useEffect } from 'react';
 import { getIngredients } from '../../services/ingredients/actions';
 import { useDispatch } from '../../services/store';
-import { getFeeds } from '../../services/feed/action';
 import { ProtectedRoute } from '../protected-route';
 import { getUser } from '../../services/user/action';
 import { checkUserStatus } from '../../services/user/userSlice';
@@ -94,6 +93,14 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <OrderInfo />
+            </ProtectedRoute>
+          }
+        />
         {/* Здесь будут защищенные роуты */}
         <Route path='*' element={<NotFound404 />} />
       </Routes>
@@ -118,7 +125,7 @@ const App = () => {
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal title={''} onClose={() => {}}>
+              <Modal title={''} onClose={() => navigate(-1)}>
                 <ProtectedRoute>
                   <OrderInfo />
                 </ProtectedRoute>

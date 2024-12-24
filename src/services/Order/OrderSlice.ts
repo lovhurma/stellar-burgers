@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
-import { fetchOrder } from './actions';
+import { fetchOrder, getOrderByNumber } from './actions';
 
 export interface IOrderState {
   orderData: TOrder | null;
@@ -34,6 +34,16 @@ export const orderSlice = createSlice({
         state.orderData = action.payload;
       })
       .addCase(fetchOrder.rejected, (state) => {
+        state.orderRequest = false;
+      })
+      .addCase(getOrderByNumber.pending, (state) => {
+        state.orderRequest = true;
+      })
+      .addCase(getOrderByNumber.fulfilled, (state, { payload }) => {
+        state.orderRequest = false;
+        state.orderData = payload.orders[0];
+      })
+      .addCase(getOrderByNumber.rejected, (state) => {
         state.orderRequest = false;
       });
   }

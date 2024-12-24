@@ -1,4 +1,4 @@
-import { orderBurgerApi } from '@api';
+import { getOrderByNumberApi, orderBurgerApi } from '@api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { clearConstructor } from '../burger-constructor/constructorslice';
 
@@ -13,4 +13,9 @@ export const fetchOrder = createAsyncThunk(
     }
     return response.order;
   }
+);
+
+export const getOrderByNumber = createAsyncThunk(
+  'order/getOrderByNumber',
+  getOrderByNumberApi
 );
