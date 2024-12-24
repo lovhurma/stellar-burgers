@@ -6,8 +6,8 @@ import {
   clearOrderModalData,
   getOrderModalData,
   getOrderRequest
-} from '../../services/Order/OrderSlice';
-import { fetchOrder } from '../../services/Order/actions';
+} from '../../services/order/orderSlice';
+import { fetchOrder } from '../../services/order/actions';
 import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {

@@ -8,12 +8,10 @@ export const Register: FC = () => {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   const handleSubmit = (e: SyntheticEvent) => {
-    const dispatch = useDispatch();
-    // const name = userName;
     e.preventDefault();
-    // dispatch(registerUser({ email, name, password }));
     const userData: TRegisterData = {
       email: email,
       name: userName,

@@ -11,16 +11,18 @@ import {
 } from 'react-redux';
 import { ingredientsSlice } from './ingredients/ingredientSlice';
 import { constructorSlice } from './burger-constructor/constructorslice';
-import { orderSlice } from './Order/OrderSlice';
 import { feedSlice } from './feed/feedSlice';
 import { userSlice } from './user/userSlice';
+import { orderSlice } from './order/orderSlice';
+import { profileOrderSlice } from './profile-orders/profileOrderSlice';
 
 const rootReducer = combineSlices(
   ingredientsSlice,
   constructorSlice,
   orderSlice,
   feedSlice,
-  userSlice
+  userSlice,
+  profileOrderSlice
 ); // Заменить на импорт настоящего редьюсера
 
 const store = configureStore({
