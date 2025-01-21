@@ -1,12 +1,11 @@
 describe('Burger Constructor', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:4000');
+    cy.setCookie('accessToken', '1111111111');
+    localStorage.setItem('refreshToken', '5555555555');
+
     cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients.json' }).as(
       'getIngredients'
     );
-    // cy.intercept('GET', 'https://norma.nomoreparties.space/api/ingredients', {
-    //   fixture: 'ingredients.json'
-    // }).as('getIngredients');
 
     cy.intercept('POST', 'api/orders', { fixture: 'order.json' }).as(
       'createOrder'
@@ -14,8 +13,8 @@ describe('Burger Constructor', () => {
     cy.intercept('GET', 'api/auth/user', { fixture: 'user.json' }).as(
       'fetchUser'
     );
-    cy.setCookie('accessToken', '1111111111');
-    localStorage.setItem('refreshToken', '5555555555');
+
+    cy.visit('http://localhost:4000');
   });
 
   afterEach(() => {
@@ -71,7 +70,6 @@ describe('Burger Constructor', () => {
     cy.get('[id=modals]').find('button').click().should('not.exist'); // Закрытие модального окна
     cy.get('[id=modals]').should('not.exist'); // Проверка, что модал открылся
   });
-
 
   it('успешно создать заказ и очистить конструктор', () => {
     // Ждем загрузки данных пользователя
