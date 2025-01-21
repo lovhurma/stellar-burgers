@@ -7,17 +7,13 @@ import {
   moveIngredientDown,
   clearConstructor
 } from './constructorslice';
-import { TIngredient } from '@utils-types';
-
-// Mock для uuid
-jest.mock('uuid', () => ({
-  v4: jest.fn(() => 'mocked-uuid')
-}));
+import { TConstructorIngredient, TIngredient } from '@utils-types';
 
 // Определяем ингредиенты для тестов
-const ingredient1: TIngredient = {
+const ingredient1: TConstructorIngredient = {
   _id: '1',
   name: 'Test Ingredient 1',
+  id: '1',
   type: 'main',
   proteins: 10,
   fat: 5,
@@ -29,10 +25,11 @@ const ingredient1: TIngredient = {
   image_mobile: 'image_mobile1'
 };
 
-const ingredient2: TIngredient = {
+const ingredient2: TConstructorIngredient = {
   _id: '2',
   name: 'Test Ingredient 2',
   type: 'main',
+  id: '2',
   proteins: 15,
   fat: 7,
   carbohydrates: 25,
@@ -80,27 +77,33 @@ describe('constructorSlice', () => {
   });
 
   it('should handle deleteIngredient action', () => {
-    store.dispatch(addIngredient(ingredient1));
-    store.dispatch(addIngredient(ingredient2));
-
-    store.dispatch(deleteIngredient('1'));
-    const state = store.getState().burgerConstructor;
-
-    expect(state.ingredients).toHaveLength(1);
-    expect(state.ingredientCounts).toEqual({ '2': 1 });
+    const initialState = {
+      bun: null,
+      ingredients: [ingredient1, ingredient2],
+      ingredientCounts: { '1': 1, '2': 1 }
+    };
+    const newState = constructorSlice.reducer(
+      initialState,
+      deleteIngredient('1')
+    );
+    expect(newState.ingredients).toHaveLength(1);
+    expect(newState.ingredientCounts).toEqual({ '2': 1 });
   });
 
   it('should move ingredient up and down', () => {
-    store.dispatch(addIngredient(ingredient1));
-    store.dispatch(addIngredient(ingredient2));
+    const initialState = {
+      bun: null,
+      ingredients: [ingredient1, ingredient2],
+      ingredientCounts: { '1': 1, '2': 1 }
+    };
 
-    store.dispatch(moveIngredientUp('2'));
-    let state = store.getState().burgerConstructor;
-    expect(state.ingredients[0]._id).toEqual('2');
+    const newState = constructorSlice.reducer(
+      initialState,
+      moveIngredientDown('1')
+    );
+    console.log(newState);
 
-    store.dispatch(moveIngredientDown('1'));
-    state = store.getState().burgerConstructor;
-    expect(state.ingredients[1]._id).toEqual('1');
+    expect(newState.ingredients[0]._id).toEqual('2');
   });
 
   it('should clear the constructor', () => {

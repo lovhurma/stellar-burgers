@@ -8,7 +8,7 @@ export interface IBurgerConstructor {
   ingredientCounts: { [id: string]: number };
 }
 
-const initialState: IBurgerConstructor = {
+export const initialState: IBurgerConstructor = {
   bun: null,
   ingredients: [],
   ingredientCounts: {}

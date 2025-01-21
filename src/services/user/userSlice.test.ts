@@ -1,4 +1,4 @@
-import { userSlice, initialState } from './userSlice'; // Путь к вашему userSlice
+import { userSlice, initialState } from './userSlice';
 import {
   registerUser,
   getUser,

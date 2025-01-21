@@ -1,4 +1,4 @@
-import { orderSlice, clearOrderModalData } from './orderSlice'; // Путь к вашему файлу с слайсом
+import { orderSlice, clearOrderModalData } from './orderSlice';
 import { fetchOrder } from './actions'
 
 describe('orderSlice', () => {

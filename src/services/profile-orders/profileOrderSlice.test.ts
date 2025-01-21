@@ -1,4 +1,4 @@
-import { profileOrderSlice } from './profileOrderSlice'; // Укажите правильный путь
+import { profileOrderSlice } from './profileOrderSlice';
 import { getProfileOrder } from './action';
 
 const { reducer } = profileOrderSlice;

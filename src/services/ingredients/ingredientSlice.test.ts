@@ -1,6 +1,6 @@
-import { ingredientsSlice } from './ingredientSlice'; // путь к вашему слайсу
+import { ingredientsSlice } from './ingredientSlice'; 
 import { getIngredients } from './actions'
-import { TIngredient } from '@utils-types'; // импортируйте типы, если необходимо
+import { TIngredient } from '@utils-types'; 
 
 // Заготовка моковых данных
 const mockIngredients: TIngredient[] = [
@@ -56,7 +56,7 @@ describe('ingredientsSlice', () => {
   it('should handle getIngredients.fulfilled', () => {
     const action = { type: getIngredients.fulfilled.type, payload: mockIngredients };
     const state = ingredientsSlice.reducer(
-      { ...initialState, isLoading: true }, // Предполагаем, что состояние загружается
+      { ...initialState, isLoading: true },
       action
     );
     expect(state).toEqual({

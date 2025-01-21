@@ -4,7 +4,7 @@ import { getFeeds } from './action';
 import { getFeedsApi } from '@api';
 import { feedReducer } from './feedSlice';
 
-jest.mock('@api'); // Мокаем ваш API для предотвращения реальных запросов.
+jest.mock('@api'); // Мокаем API для предотвращения реальных запросов.
 
 type RootState = {
   feed: IFeedState;
