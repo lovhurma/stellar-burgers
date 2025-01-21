@@ -101,7 +101,6 @@ describe('constructorSlice', () => {
       initialState,
       moveIngredientDown('1')
     );
-    console.log(newState);
 
     expect(newState.ingredients[0]._id).toEqual('2');
   });
