@@ -9,7 +9,7 @@ import { ingredientsSlice } from './ingredients/ingredientSlice';
 import { constructorSlice } from './burger-constructor/constructorslice';
 import { feedSlice } from './feed/feedSlice';
 import { userSlice } from './user/userSlice';
-import { orderSlice } from './Order/orderSlice';
+import { orderSlice } from './Order/OrderSlice';
 import { profileOrderSlice } from './profile-orders/profileOrderSlice';
 
 export const rootReducer = combineSlices(

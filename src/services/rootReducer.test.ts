@@ -2,7 +2,7 @@ import { rootReducer } from './store';
 import { initialState as burgerConstructorInitialState } from './burger-constructor/constructorslice';
 import { initialState as feedInitialState } from './feed/feedSlice';
 import { initialState as ingredientsInitialState } from './ingredients/ingredientSlice';
-import { initialState as orderInitialState } from './Order/orderSlice';
+import { initialState as orderInitialState } from './Order/OrderSlice';
 import { initialState as profileOrdersInitialState } from './profile-orders/profileOrderSlice';
 import { initialState as userInitialState } from './user/userSlice';
 

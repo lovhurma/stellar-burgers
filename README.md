@@ -1,19 +1,125 @@
-# Проектная работа 11-го спринта
+# Интернет-магазин "Веб-ларек"
 
-[Макет](<https://www.figma.com/file/vIywAvqfkOIRWGOkfOnReY/React-Fullstack_-Проектные-задачи-(3-месяца)_external_link?type=design&node-id=0-1&mode=design>)
+Интернет-магазин "Веб-ларек", в котором можно посмотреть каталог товаров, добавить их в корзину и оформить заказ.
 
-[Чеклист](https://www.notion.so/praktikum/0527c10b723d4873aa75686bad54b32e?pvs=4)
+## Стек технологий
+- HTML  
+- SCSS  
+- TypeScript  
+- Webpack  
 
-## Этапы работы:
+## Выполненные задачи
+- Разработала документацию (описала типы данных, методы и парадигму MVP)  
+- Реализовала оформление заказа и его отправку на сервер  
 
-1. Разверните проект и ознакомьтесь с кодом. Все необходимые вам компоненты уже созданы и лежат в папке `src/components`
+## Демо
+Доступно по адресу: [https://lovhurma.github.io/](https://lovhurma.github.io/)  
 
-2. Настройте роутинг.
+## Установка и запуск  
+Для установки и запуска проекта необходимо выполнить команды:  
 
-3. Напишите функционал запросов данных с сервера, используя `Redux` и глобальный `store`. Сами "ручки" уже прописаны и лежат в `utils/burger-api.ts`
+```bash
+npm install
+npm run start
+```
+Или:
 
-4. Настройте авторизацию и создайте защищённые роуты.
+```bash
+yarn
+yarn start
+```
+## Сборка проекта
 
-## Важно:
+```bash
+npm run build
+```
+Или:
+```bash
+yarn build
+```
+## Типы данных
 
-Для корректной работы запросов к серверу необходимо добавить переменную BURGER_API_URL в окружение. Сама ссылка находится в файле `.env.example`.
+```bash
+export type TIngredient = {
+  _id: string;
+  name: string;
+  type: string;
+  proteins: number;
+  fat: number;
+  carbohydrates: number;
+  calories: number;
+  price: number;
+  image: string;
+  image_large: string;
+  image_mobile: string;
+};
+
+export type TConstructorIngredient = TIngredient & {
+  id: string;
+};
+
+export type TOrder = {
+  _id: string;
+  status: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  number: number;
+  ingredients: string[];
+};
+
+export type TOrdersData = {
+  orders: TOrder[];
+  total: number;
+  totalToday: number;
+};
+
+export type TUser = {
+  email: string;
+  name: string;
+};
+
+export type TTabMode = 'bun' | 'sauce' | 'main';
+  ```
+
+  ## Архитектура приложения
+
+  Кодовая база приложения организована по принципу MVP (Model-View-Presenter) и разделена на три ключевых слоя:
+
+Слой представления (View)
+Отвечает за визуализацию данных и взаимодействие с пользователем.
+
+Слой данных (Model)
+Управляет хранением, обработкой и состоянием данных.
+
+Презентер (Presenter)
+Координирует взаимодействие между View и Model, обрабатывая логику приложения.
+
+Пример workflow
+Для связи между слоями применен событийно-ориентированный подход. Рассмотрим сценарий:
+
+Действие пользователя:
+
+Пользователь кликает на карточку.
+
+Класс Card (View) фиксирует действие и генерирует событие card:select.
+
+Обработка в презентере:
+
+Презентер ловит событие card:select.
+
+Вызывает метод setPreview у модели данных, чтобы обновить состояние.
+
+Обновление модели:
+
+Меняет значение поля preview.
+
+Генерирует событие preview:change.
+
+Реакция представления:
+
+Презентер обрабатывает preview:change.
+
+Инициирует перерисовку CardPreview (View), передавая актуальные данные из модели.
+
+Таким образом, каждый слой остается изолированным, а коммуникация между ними происходит через четко определенные события.

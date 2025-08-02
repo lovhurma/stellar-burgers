@@ -1,4 +1,4 @@
-import { orderSlice, clearOrderModalData } from './orderSlice';
+import { orderSlice, clearOrderModalData } from './OrderSlice';
 import { fetchOrder } from './actions'
 
 describe('orderSlice', () => {
